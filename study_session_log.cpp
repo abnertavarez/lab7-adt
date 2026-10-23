@@ -31,18 +31,63 @@ private:
     // ===== Resolve these TODOs later (Part D) =====
 
     // TODO (Part D): Add a fixed capacity constant of four study sessions.
-
+static const int CAPACITY = 4;
     // TODO (Part D): Add an int array named sessionMinutes for the stored session durations.
-  
+  int sessionMinutes[CAPACITY];
     // TODO (Part D): Add an int that tracks how many study sessions are stored.
-  
+  int count;
+
 public:
     // TODO (Part D): Write a constructor that creates an empty log.
+    StudySessionLog()
+    {
+        count = 0;            // A new log begins with no stored study sessions.
+    }
     // TODO (Part D): Write addSession. It receives minutes and reports whether the session was stored.
+    bool addSession(int minutes)
+    {
+        if (count == CAPACITY)
+        {
+            return false;     // Do not write outside the fixed array capacity.
+        }
+
+        sessionMinutes[count] = minutes;
+        count++;
+        return true;
+    }
     // TODO (Part D): Write totalMinutes as a const member function.
+    int totalMinutes() const
+    {
+        int total = 0;
+        for (int i = 0; i < count; i++)
+        {
+            total += sessionMinutes[i];
+        }
+        return total;
+    }
     // TODO (Part D): Write longestSession as a const member function.
+    int longestSession() const
+    {
+        int max = sessionMinutes[0];
+        for (int i = 1; i < count; i++)
+        {
+            if (sessionMinutes[i] > max)
+            {
+                max = sessionMinutes[i];
+            }
+        }
+        return max;
+    }
     // TODO (Part D): Write size as a const member function.
+    int size() const
+    {
+        return count;
+    }
     // TODO (Part D): Write isEmpty as a const member function.
+    bool isEmpty() const
+    {
+        return count == 0;
+    }
 };
 
 int main()
